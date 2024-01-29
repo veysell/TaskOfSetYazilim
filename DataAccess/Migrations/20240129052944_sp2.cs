@@ -4,11 +4,12 @@
 
 namespace DataAccess.Migrations
 {
-    public partial class _sp1 : Migration
+    public partial class sp2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql($@"CREATE PROCEDURE sp_CalculateAllSalary
+            migrationBuilder.Sql($@"CREATE PROCEDURE sp_GetSalaryByEmployeeId
+                                        @EmployeeId INT
                                     AS
                                     BEGIN
                                         DECLARE @CurrentDate DATE = GETDATE();
@@ -18,9 +19,9 @@ namespace DataAccess.Migrations
                                             e.SurName,
                                             e.InternationalId,
                                             CASE
-                                                WHEN et.Id = 1 THEN r.FixedSalaryAmount -- Tip 1 için sabit maaş
-                                                WHEN et.Id = 2 THEN r.DailyAmount * ewdoh.WorkingDayOrHour -- Tip 2 için (günlük ücret * WorkingDayOrHour)
-                                                WHEN et.Id = 3 THEN (r.FixedSalaryAmount + r.OvertimeAmount) * ewdoh.WorkingDayOrHour -- Tip 3 için ((sabit maaş + fazla mesai ücreti) * WorkingDayOrHour)
+                                                WHEN et.Id = 1 THEN r.FixedSalaryAmount 
+                                                WHEN et.Id = 2 THEN r.DailyAmount * ewdoh.WorkingDayOrHour
+                                                WHEN et.Id = 3 THEN (r.FixedSalaryAmount + r.OvertimeAmount* ewdoh.WorkingDayOrHour) 
                                                 ELSE NULL
                                             END AS [Salary]
                                         FROM
@@ -33,13 +34,15 @@ namespace DataAccess.Migrations
                                                 r.PeriodEnd >= @CurrentDate
                                         LEFT JOIN
                                             EmployeeWorkingDayOrHour AS ewdoh ON e.Id = ewdoh.EmployeeId
+                                        WHERE
+                                            e.Id = @EmployeeId;
                                     END"
             );
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql($@"DROP PROC sp_CalculateAllSalary");
+            migrationBuilder.Sql($@"DROP PROC sp_GetSalaryByEmployeeId");
         }
 
     }

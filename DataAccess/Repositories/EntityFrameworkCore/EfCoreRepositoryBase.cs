@@ -55,6 +55,18 @@ namespace DataAccess.Repositories
             return list;
         }
 
+        public SalaryList GetSalaryInfo(int employeeId)
+        {
+            var item = _context.SalaryInfos.FromSqlRaw($"EXEC dbo.sp_GetSalaryByEmployeeId {employeeId}").AsEnumerable().Select(x => new SalaryList
+            {
+                Name = x.Name,
+                SurName = x.SurName,
+                Salary = x.Salary,
+                InternationalId = x.InternationalId
+            }).First();
+            return item;
+           
+        }
 
         public void Update(TEntity entity)
         {
@@ -76,5 +88,6 @@ namespace DataAccess.Repositories
 
         void Delete(T entity);
         List<SalaryList> GetAllSalaryList();
+        SalaryList GetSalaryInfo(int employeeId);
     }
 }

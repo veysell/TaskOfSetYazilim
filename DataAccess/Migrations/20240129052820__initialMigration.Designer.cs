@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240129033743__initialMigration")]
+    [Migration("20240129052820__initialMigration")]
     partial class _initialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -153,6 +153,60 @@ namespace DataAccess.Migrations
                         });
                 });
 
+            modelBuilder.Entity("DataAccess.Entities.EmployeeWorkingDayOrHour", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal>("WorkingDayOrHour")
+                        .HasColumnType("decimal(4,1)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("EmployeeWorkingDayOrHour");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            EmployeeId = 3,
+                            IsActive = true,
+                            WorkingDayOrHour = 2m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            EmployeeId = 4,
+                            IsActive = true,
+                            WorkingDayOrHour = 2m
+                        },
+                        new
+                        {
+                            Id = 3,
+                            EmployeeId = 5,
+                            IsActive = true,
+                            WorkingDayOrHour = 2m
+                        },
+                        new
+                        {
+                            Id = 4,
+                            EmployeeId = 6,
+                            IsActive = true,
+                            WorkingDayOrHour = 2m
+                        });
+                });
+
             modelBuilder.Entity("DataAccess.Entities.Revenue", b =>
                 {
                     b.Property<int>("Id")
@@ -230,6 +284,17 @@ namespace DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("EmployeeType");
+                });
+
+            modelBuilder.Entity("DataAccess.Entities.EmployeeWorkingDayOrHour", b =>
+                {
+                    b.HasOne("DataAccess.Entities.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
                 });
 #pragma warning restore 612, 618
         }
