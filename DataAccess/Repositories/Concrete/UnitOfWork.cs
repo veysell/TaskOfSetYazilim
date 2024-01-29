@@ -23,7 +23,6 @@ namespace DataAccess.Repositories
         public IEmployeeTypeRepository EmployeeType{get;private set;}
 
         public IRevenueRepository Revenue { get; private set; }
-
         public void Dispose()
         {
             _context.Dispose();

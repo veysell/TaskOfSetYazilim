@@ -1,6 +1,7 @@
 ﻿using DataAccess.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TaskOfSetYazilim.Models;
 
 namespace TaskOfSetYazilim.Controllers
 {
@@ -13,10 +14,19 @@ namespace TaskOfSetYazilim.Controllers
         {
             _unitOfWork=unitOfWork;
         }
-        [HttpGet]
+
+        [HttpGet("getall")]
         public IActionResult Get()
         {
             var employee = _unitOfWork.Employee.GetAll();
+            return Ok(employee);
+        }
+
+        [HttpGet("getsalary")]
+        public IActionResult GetAllSalaryInfos()
+        {
+            var employee = _unitOfWork.Employee.GetAllSalaryList();
+
             return Ok(employee);
         }
     }

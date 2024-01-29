@@ -1,4 +1,5 @@
 ﻿using DataAccess.Entities;
+using DataAccess.Models;
 using DataAccess.mssql;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -41,6 +42,20 @@ namespace DataAccess.Repositories
             return filter == null ? _context.Set<TEntity>().ToList() : _context.Set<TEntity>().Where(filter).ToList();
         }
 
+        public List<SalaryList> GetAllSalaryList()
+        {
+            var list = _context.SalaryInfos.FromSqlRaw($"EXEC dbo.sp_CalculateAllSalary").AsEnumerable().Select(x=> new SalaryList
+            {
+                Name = x.Name,
+                SurName = x.SurName,
+                Salary = x.Salary,
+                InternationalId = x.InternationalId
+            }).ToList();
+            
+            return list;
+        }
+
+
         public void Update(TEntity entity)
         {
             var uptadedEntity = _context.Entry(entity);
@@ -60,5 +75,6 @@ namespace DataAccess.Repositories
         void Update(T entity);
 
         void Delete(T entity);
+        List<SalaryList> GetAllSalaryList();
     }
 }

@@ -43,6 +43,19 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SalaryInfos",
+                columns: table => new
+                {
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SurName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    InternationalId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Salary = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Employees",
                 columns: table => new
                 {
@@ -78,7 +91,7 @@ namespace DataAccess.Migrations
             migrationBuilder.InsertData(
                 table: "Revenues",
                 columns: new[] { "Id", "DailyAmount", "FixedSalaryAmount", "IsActive", "Name", "OvertimeAmount", "PeriodEnd", "PeriodStart" },
-                values: new object[] { 1, 150.75m, 5000.00m, true, "Ocak-Mayıs Dönemi Ödeme Miktarları", 200.50m, new DateTime(2024, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                values: new object[] { 1, 1500.75m, 25000.00m, true, "Ocak-Mayıs Dönemi Ödeme Miktarları", 500.50m, new DateTime(2024, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
 
             migrationBuilder.InsertData(
                 table: "Employees",
@@ -86,11 +99,11 @@ namespace DataAccess.Migrations
                 values: new object[,]
                 {
                     { 1, 1, "12345678911", true, "Ahmet", "Dur" },
-                    { 2, 2, "98765432100", true, "Mehmet", "Yılmaz" },
-                    { 3, 1, "45678912300", true, "Ayşe", "Yıldız" },
-                    { 4, 2, "65432198700", true, "Fatma", "Kaya" },
-                    { 5, 1, "78912345600", true, "Mustafa", "Şahin" },
-                    { 6, 2, "01234567890", true, "Zeynep", "Aydın" }
+                    { 2, 1, "12444678911", true, "Ahmet", "Akça" },
+                    { 3, 2, "98765432100", true, "Mehmet", "Yılmaz" },
+                    { 4, 2, "98765552100", true, "Mehmet", "Tuna" },
+                    { 5, 3, "45678912300", true, "Ayşe", "Yıldız" },
+                    { 6, 3, "41118912300", true, "Ayşe", "Yalnız" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -106,6 +119,9 @@ namespace DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "Revenues");
+
+            migrationBuilder.DropTable(
+                name: "SalaryInfos");
 
             migrationBuilder.DropTable(
                 name: "EmployeeTypes");
