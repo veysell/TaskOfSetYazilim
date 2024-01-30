@@ -68,6 +68,17 @@ namespace DataAccess.Repositories
            
         }
 
+        public IQueryable<TEntity> Include(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includes)
+        {
+            var query = _context.Set<TEntity>().AsQueryable();
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+
+            return query.Where(predicate);
+        }
+
         public void Update(TEntity entity)
         {
             var uptadedEntity = _context.Entry(entity);
@@ -89,5 +100,7 @@ namespace DataAccess.Repositories
         void Delete(T entity);
         List<SalaryList> GetAllSalaryList();
         SalaryList GetSalaryInfo(int employeeId);
+
+        IQueryable<T> Include(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes);
     }
 }

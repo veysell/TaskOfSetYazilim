@@ -48,7 +48,7 @@ namespace TaskOfSetYazilim.Controllers
 
 
         [HttpPost("Ekle_Calisan")]
-        public ApiResponseModel AddEmployee([FromBody] EmployeeAddModel model)
+        public ApiResponseModel<Employee> AddEmployee([FromBody] EmployeeAddModel model)
         {
             var addItem = new Employee
             {
@@ -59,11 +59,11 @@ namespace TaskOfSetYazilim.Controllers
             };
             var IsExist = _unitOfWork.Employee.GetAll().FirstOrDefault(x => x.InternationalId == addItem.InternationalId);
             if (IsExist != null)
-                return new ApiResponseModel { Message = "Çalışan mevcut", IsSuccess = false };
+                return new ApiResponseModel<Employee> { Message = "Çalışan mevcut", IsSuccess = false };
             else
                 _unitOfWork.Employee.Add(addItem);
 
-            return new ApiResponseModel { Message = "Çalışan eklendi" };
+            return new ApiResponseModel<Employee> { Message = "Çalışan eklendi" };
         }
     }
 }

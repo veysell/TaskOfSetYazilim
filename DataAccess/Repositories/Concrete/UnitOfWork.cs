@@ -20,6 +20,7 @@ namespace DataAccess.Repositories
             EmployeeType = new EmployeeTypeRepository(_context);
             Revenue = new RevenueRepository(_context);
             User = new UserRepository(_context);
+            WorkingTime = new WorkingTimeRepository(_context);
         }
         public IEmployeeRepository Employee {get;private set;}
 
@@ -28,6 +29,8 @@ namespace DataAccess.Repositories
         public IRevenueRepository Revenue { get; private set; }
 
         public IUserRepository User { get; private set; }
+
+        public IWorkingTimeRepository WorkingTime { get; private set; }
         public void Dispose()
         {
             _context.Dispose();

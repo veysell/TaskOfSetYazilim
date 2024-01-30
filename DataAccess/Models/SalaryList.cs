@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Models
 {
-    public class SalaryList: IEntity
+    public class SalaryList
     {
         public string Name { get; set; }
         public string SurName { get; set; }

@@ -13,6 +13,7 @@ namespace DataAccess.Repositories
         IEmployeeTypeRepository EmployeeType { get; }
         IRevenueRepository Revenue { get; }
         IUserRepository User { get; }
+        IWorkingTimeRepository WorkingTime { get; }
         int SaveChanges();
     }
 }
