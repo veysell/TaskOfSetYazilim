@@ -1,12 +1,13 @@
 ﻿using DataAccess.Entities;
 using DataAccess.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TaskOfSetYazilim.Models;
 
 namespace TaskOfSetYazilim.Controllers
 {
-
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class EmployeeController : ControllerBase
@@ -35,6 +36,11 @@ namespace TaskOfSetYazilim.Controllers
         [HttpPost("Getir_CalisanBordro")]
         public IActionResult GetAllSalaryInfos(int EmployeeId)
         {
+            var IsValidEmployee = _unitOfWork.Employee.Get(x => x.Id == EmployeeId);
+            if (IsValidEmployee == null)
+            {
+                return BadRequest("Geçersiz Çalışan Id");
+            }
             var employee = _unitOfWork.Employee.GetSalaryInfo(EmployeeId);
 
             return Ok(employee);

@@ -19,7 +19,7 @@ namespace DataAccess.mssql
         public DbSet<Revenue> Revenues { get; set; }
         public DbSet<EmployeeWorkingDayOrHour> EmployeeWorkingDayOrHour { get; set; }
         public DbSet<SalaryList> SalaryInfos { get; set; }
-
+        public DbSet<User> Users { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<SalaryList>().HasNoKey();
@@ -45,6 +45,9 @@ namespace DataAccess.mssql
                 );
             modelBuilder.Entity<Revenue>().HasData(
                 new Revenue { Id = 1, Name = "Ocak-Mayıs Dönemi Ödeme Miktarları", FixedSalaryAmount = 25000.00m, OvertimeAmount = 500.50m, DailyAmount = 1500.75m, PeriodStart = new DateTime(2024, 01, 1), PeriodEnd = new DateTime(2024, 05, 1) }
+                );
+            modelBuilder.Entity<User>().HasData(
+                new User { Id = 1, Name = "Veysel", UserName = "super", Password = "user" }
                 );
         }
     }

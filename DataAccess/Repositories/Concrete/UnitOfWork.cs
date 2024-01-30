@@ -1,4 +1,6 @@
 ﻿using DataAccess.mssql;
+using DataAccess.Repositories.Abstract;
+using DataAccess.Repositories.Concrete;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -17,12 +19,15 @@ namespace DataAccess.Repositories
             Employee = new EmployeeRepository(_context);
             EmployeeType = new EmployeeTypeRepository(_context);
             Revenue = new RevenueRepository(_context);
+            User = new UserRepository(_context);
         }
         public IEmployeeRepository Employee {get;private set;}
 
         public IEmployeeTypeRepository EmployeeType{get;private set;}
 
         public IRevenueRepository Revenue { get; private set; }
+
+        public IUserRepository User { get; private set; }
         public void Dispose()
         {
             _context.Dispose();

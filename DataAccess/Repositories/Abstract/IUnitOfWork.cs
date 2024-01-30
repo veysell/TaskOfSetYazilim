@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataAccess.Repositories.Abstract;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace DataAccess.Repositories
         IEmployeeRepository Employee { get; }
         IEmployeeTypeRepository EmployeeType { get; }
         IRevenueRepository Revenue { get; }
+        IUserRepository User { get; }
         int SaveChanges();
     }
 }

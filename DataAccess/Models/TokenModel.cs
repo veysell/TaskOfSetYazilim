@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccess.Repositories.Abstract
+namespace DataAccess.Models
 {
-    public interface Interface1
+    public class TokenModel
     {
+        public string Token { get; set; }
     }
 }
