@@ -19,8 +19,8 @@ namespace DataAccess.Migrations
                                             e.InternationalId,
                                             CASE
                                                 WHEN et.Id = 1 THEN r.FixedSalaryAmount 
-                                                WHEN et.Id = 2 THEN r.DailyAmount * SUM(ewdoh.WorkingDayOrHour) 
-                                                WHEN et.Id = 3 THEN (r.FixedSalaryAmount + r.OvertimeAmount* SUM(ewdoh.WorkingDayOrHour)) 
+                                                WHEN et.Id = 2 THEN r.DailyAmount * ISNULL(SUM(ewdoh.WorkingDayOrHour),0) 
+                                                WHEN et.Id = 3 THEN (r.FixedSalaryAmount + r.OvertimeAmount* ISNULL(SUM(ewdoh.WorkingDayOrHour),0)) 
                                                 ELSE NULL
                                             END AS [Salary]
                                         FROM
@@ -50,8 +50,8 @@ namespace DataAccess.Migrations
                                             e.InternationalId,
                                             CASE
                                                 WHEN et.Id = 1 THEN r.FixedSalaryAmount 
-                                                WHEN et.Id = 2 THEN r.DailyAmount * SUM(ewdoh.WorkingDayOrHour) -- Toplamı al
-                                                WHEN et.Id = 3 THEN (r.FixedSalaryAmount + r.OvertimeAmount * SUM(ewdoh.WorkingDayOrHour)) 
+                                                WHEN et.Id = 2 THEN r.DailyAmount * ISNULL(SUM(ewdoh.WorkingDayOrHour),0) -- Toplamı al
+                                                WHEN et.Id = 3 THEN (r.FixedSalaryAmount + r.OvertimeAmount * ISNULL(SUM(ewdoh.WorkingDayOrHour),0)) 
                                                 ELSE NULL
                                             END AS [Salary]
                                         FROM
